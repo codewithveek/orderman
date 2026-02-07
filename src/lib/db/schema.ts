@@ -55,7 +55,7 @@ export const menuItems = mysqlTable('menu_items', {
   price: decimal('price', { precision: 10, scale: 2 }).notNull(),
   imageUrl: varchar('image_url', { length: 500 }).notNull(),
   category: varchar('category', { length: 100 }).notNull(),
-  available: boolean('available').default(false).notNull(),
+  available: boolean('available').default(true).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
 });

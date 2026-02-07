@@ -1,8 +1,6 @@
-import { db } from '@/lib/db';
-import { menuItems } from '@/lib/db/schema';
 import { MenuFilters } from '@/components/menu/menu-filters';
 import { MenuList } from '@/components/menu/menu-list';
-import { eq } from 'drizzle-orm';
+import { menuRepository } from '@/lib/repositories/menu';
 
 // Force dynamic to ensure fresh data if we add admin features later
 export const dynamic = 'force-dynamic';
@@ -17,16 +15,16 @@ export default async function MenuPage({
 
     let items;
     if (category && category !== 'all') {
-        items = await db.select().from(menuItems).where(eq(menuItems.category, category));
+        items = await menuRepository.findByCategory(category);
     } else {
-        items = await db.select().from(menuItems);
+        items = await menuRepository.findAll();
     }
 
     // Transform to match MenuItem type (available is 0/1 in db, boolean in type)
     const formattedItems = items.map(item => ({
         ...item,
         price: item.price.toString(), // ensure string
-        available: item.available === 1,
+
     }));
 
     return (
