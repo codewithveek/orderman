@@ -31,7 +31,7 @@ export default function Home() {
 
       {/* Basic Features Section */}
       <section className="py-20 px-4 bg-muted/30">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="p-6 rounded-2xl bg-card shadow-sm hover:shadow-md transition-shadow">
             <div className="text-4xl mb-4">🚀</div>
             <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>

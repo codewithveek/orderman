@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
 import { MySqlTable } from 'drizzle-orm/mysql-core';
-import { eq } from 'drizzle-orm';
+import { eq, InferInsertModel } from 'drizzle-orm';
 
 export class BaseRepository<T extends MySqlTable> {
     constructor(protected table: T) { }
@@ -19,9 +19,8 @@ export class BaseRepository<T extends MySqlTable> {
         return result[0];
     }
 
-    async create(data: any) {
-        // @ts-expect-error - generic insert
-        const [result] = await db.insert(this.table).values(data) as any;
+    async create(data: InferInsertModel<T>) {
+        const [result] = await db.insert(this.table).values(data);
         return result.insertId ? { id: result.insertId, ...data } : { ...data };
     }
 }

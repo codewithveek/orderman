@@ -2,7 +2,7 @@ import { Context } from 'hono';
 import { ZodError } from 'zod';
 
 export class BaseController {
-    protected success(c: Context, data: any, status: 200 | 201 = 200) {
+    protected success<T>(c: Context, data: T, status: 200 | 201 = 200) {
         return c.json(data, status);
     }
 
