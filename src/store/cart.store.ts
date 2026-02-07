@@ -16,7 +16,7 @@ interface CartState {
 }
 
 // Helper to compute totals
-const computeTotals = (items: CartItem[]) => {
+export const computeTotals = (items: CartItem[]) => {
   if (items.length === 0) {
     return { totalItems: 0, totalPrice: 0 };
   }
