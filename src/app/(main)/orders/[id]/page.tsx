@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Order, OrderStatus } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,8 +9,50 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import Link from "next/link";
+import {
+  Check,
+  Clock,
+  Loader,
+  Package,
+  Truck,
+  UtensilsCrossed,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import { useOrderUpdates } from "@/hooks/use-order-updates";
+
+const STEPS = [
+  {
+    id: "pending",
+    label: "Order Placed",
+    description: "We have received your order",
+    icon: Clock,
+  },
+  {
+    id: "confirmed",
+    label: "Order Confirmed",
+    description: "Your order has been confirmed",
+    icon: Check,
+  },
+  {
+    id: "preparing",
+    label: "Preparing",
+    description: "We are preparing your food",
+    icon: UtensilsCrossed,
+  },
+  {
+    id: "out_for_delivery",
+    label: "Out for Delivery",
+    description: "Your order is on the way",
+    icon: Truck,
+  },
+  {
+    id: "delivered",
+    label: "Delivered",
+    description: "Enjoy your meal",
+    icon: Package,
+  },
+] as const;
 
 export default function OrderDetailsPage() {
   const params = useParams();
@@ -58,7 +100,12 @@ export default function OrderDetailsPage() {
   }, [status, order]);
 
   if (loading)
-    return <div className="p-8 text-center">Loading order details...</div>;
+    return (
+      <div className="p-8 text-center mx-auto max-w-md flex flex-col items-center justify-center">
+        <Loader className="h-8 w-8 animate-spin" />
+        Loading order details...
+      </div>
+    );
   if (error)
     return <div className="p-8 text-center text-destructive">{error}</div>;
   if (!order) return null;
@@ -75,30 +122,78 @@ export default function OrderDetailsPage() {
         </Badge>
       </div>
 
-      {/* Progress Bar */}
-      <div className="w-full bg-secondary h-2 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-primary transition-all duration-1000 ease-in-out"
-          style={{
-            width: `${
-              order.status === "pending"
-                ? "10%"
-                : order.status === "confirmed"
-                ? "30%"
-                : order.status === "preparing"
-                ? "60%"
-                : order.status === "out_for_delivery"
-                ? "80%"
-                : order.status === "delivered"
-                ? "100%"
-                : "0%"
-            }`,
-          }}
-        />
-      </div>
-
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Order Status</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-0">
+                {STEPS.map((step, index) => {
+                  const currentStatusIndex = STEPS.findIndex(
+                    (s) => s.id === order.status
+                  );
+                  const stepIndex = index;
+                  const isCompleted = stepIndex < currentStatusIndex;
+                  const isCurrent = stepIndex === currentStatusIndex;
+                  const isPending = stepIndex > currentStatusIndex;
+
+                  return (
+                    <div
+                      key={step.id}
+                      className="relative pl-10 pb-8 last:pb-0"
+                    >
+                      {/* Vertical Line */}
+                      {index !== STEPS.length - 1 && (
+                        <div
+                          className={cn(
+                            "absolute left-[11px] top-7 bottom-0 w-[2px]",
+                            isCompleted ? "bg-primary" : "bg-muted"
+                          )}
+                        />
+                      )}
+
+                      {/* Icon/Dot */}
+                      <div
+                        className={cn(
+                          "absolute left-0 top-0 h-6 w-6 rounded-full border-2 flex items-center justify-center z-10 bg-background transition-colors duration-300",
+                          isCompleted
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : isCurrent
+                            ? "border-primary text-primary"
+                            : "border-muted text-muted-foreground"
+                        )}
+                      >
+                        {isCompleted ? (
+                          <Check className="h-3 w-3" />
+                        ) : (
+                          <step.icon className="h-3 w-3" />
+                        )}
+                      </div>
+
+                      {/* Content */}
+                      <div className="space-y-1">
+                        <p
+                          className={cn(
+                            "text-sm font-medium leading-none",
+                            (isCompleted || isCurrent) && "text-primary",
+                            isPending && "text-muted-foreground"
+                          )}
+                        >
+                          {step.label}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>Order Items</CardTitle>

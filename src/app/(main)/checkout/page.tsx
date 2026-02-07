@@ -15,13 +15,11 @@ import { Separator } from "@/components/ui/separator";
 // import { Textarea } from '@/components/ui/textarea'; // we don't have textarea component yet, use input for notes or create it
 import { toast } from "sonner";
 import { useState } from "react";
-import { createAuthClient } from "better-auth/react";
 import { useCartStore } from "@/store/cart.store";
 import { LucideShoppingBasket } from "lucide-react";
+import { authClient } from "@/lib/authClient";
 
-const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_API_URL?.replace("/api", ""),
-});
+
 
 export default function CheckoutPage() {
   const items = useCartStore((state) => state.items);
@@ -45,18 +43,14 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 gap-4">
-        <div className="flex flex-col items-center justify-center py-12 gap-4">
-          <div className="text-5xl mb-4">
-            <LucideShoppingBasket />
-          </div>
-          <h1 className="text-2xl font-bold">Your cart is empty</h1>
-          <p className="text-muted-foreground">
-            Looks like you haven&apos;t added anything to your cart yet.
-          </p>
-          <Button onClick={() => router.push("/menu")}>Browse Menu</Button>
+        <div className="text-5xl mb-4">
+          <LucideShoppingBasket />
         </div>
         <h1 className="text-2xl font-bold">Your cart is empty</h1>
-        <Button onClick={() => router.push("/menu")}>Go to Menu</Button>
+        <p className="text-muted-foreground">
+          Looks like you haven&apos;t added anything to your cart yet.
+        </p>
+        <Button onClick={() => router.push("/menu")}>Browse Menu</Button>
       </div>
     );
   }
