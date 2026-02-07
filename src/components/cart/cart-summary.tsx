@@ -7,10 +7,8 @@ import { SheetClose } from "@/components/ui/sheet";
 import { useCartStore } from "@/store/cart.store";
 
 export function CartSummary() {
-  const { totalPrice, items } = useCartStore((state) => ({
-    totalPrice: state.totalPrice,
-    items: state.items,
-  }));
+  const items = useCartStore((state) => state.items);
+  const totalPrice = useCartStore((state) => state.totalPrice);
   const tax = totalPrice * 0.1; // 10% tax
   const total = totalPrice + tax;
 

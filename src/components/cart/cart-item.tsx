@@ -39,6 +39,7 @@ export function CartItem({ item }: CartItemProps) {
               variant="ghost"
               size="icon"
               className="h-6 w-6"
+              disabled={item.quantity === 1}
               onClick={() =>
                 updateQuantity(item.menuItem.id, item.quantity - 1)
               }

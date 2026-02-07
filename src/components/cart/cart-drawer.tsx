@@ -14,6 +14,7 @@ import { CartItem } from "./cart-item";
 import { CartSummary } from "./cart-summary";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "../ui/separator";
 
 export function CartDrawer() {
   const items = useCartStore((state) => state.items);
@@ -39,18 +40,21 @@ export function CartDrawer() {
           <SheetTitle>My Cart ({totalItems})</SheetTitle>
         </SheetHeader>
         {items.length > 0 ? (
-          <>
-            <ScrollArea className="flex-1 pr-6 -mr-6">
-              <div className="pr-6">
+          <div className="flex flex-col h-full">
+            <div className="flex-1 pr-6">
+              <div className="min-h-[300px] overflow-y-auto">
                 {items.map((item) => (
-                  <CartItem key={item.menuItem.id} item={item} />
+                  <>
+                    <CartItem key={item.menuItem.id} item={item} />
+                    <Separator />
+                  </>
                 ))}
               </div>
-            </ScrollArea>
-            <div className="pr-6 pb-6 pt-2">
+            </div>
+            <div className=" shrink-0 pr-6 pb-6 pt-2">
               <CartSummary />
             </div>
-          </>
+          </div>
         ) : (
           <div className="flex h-full flex-col items-center justify-center space-y-2 pr-6">
             <ShoppingCart className="h-12 w-12 text-muted-foreground/50" />

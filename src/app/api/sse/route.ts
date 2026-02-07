@@ -3,11 +3,10 @@ import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
+import { orderRepository } from "@/lib/repositories/order";
 
 // Simple in-memory store for connected clients (not scalable for serverless/multi-instance)
 // distinct listeners for each order? or global stream?
-// For this demo, we'll try to simulate updates for a specific order if queried, or just a general stream.
-// Actually, let's keep it simple: client connects with order ID.
 
 // NOTE: Next.js App Router SSE is tricky with serverless timeouts.
 // We'll implement a basic simulation loop that runs while the connection is open.
@@ -37,9 +36,7 @@ export async function GET(req: NextRequest) {
       };
 
       // Send initial status
-      const order = await db.query.orders.findFirst({
-        where: eq(orders.id, orderId),
-      });
+      const order = await orderRepository.findById(orderId)
 
       if (!order) {
         controller.close();
