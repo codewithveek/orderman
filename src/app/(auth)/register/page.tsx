@@ -2,17 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createAuthClient } from 'better-auth/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { authClient } from '@/lib/authClient';
 
-const authClient = createAuthClient({
-    baseURL: process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')
-});
+
 
 export default function RegisterPage() {
     const router = useRouter();

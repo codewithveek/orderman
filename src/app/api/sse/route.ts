@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { orders } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
-import { auth } from '@/lib/auth/config';
+import { auth } from '@/lib/auth';
 
 // Simple in-memory store for connected clients (not scalable for serverless/multi-instance)
 // distinct listeners for each order? or global stream?

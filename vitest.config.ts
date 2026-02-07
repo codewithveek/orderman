@@ -10,6 +10,17 @@ export default defineConfig({
         setupFiles: './tests/setup.ts',
         alias: {
             '@': path.resolve(__dirname, './src'),
+            '@asamuzakjp/css-color': path.resolve(__dirname, './tests/mocks/empty.ts'),
+            '@csstools/css-calc': path.resolve(__dirname, './tests/mocks/empty.ts'),
+            'sonner': path.resolve(__dirname, './tests/mocks/empty.ts'),
         },
+        server: {
+            deps: {
+                inline: [
+                    /@csstools/,
+                    /@asamuzakjp/,
+                ]
+            }
+        }
     },
 });

@@ -10,9 +10,10 @@ export const dynamic = 'force-dynamic';
 export default async function MenuPage({
     searchParams,
 }: {
-    searchParams: { category?: string };
+    searchParams: Promise<{ category?: string }>;
 }) {
-    const category = searchParams.category;
+    const params = await searchParams
+    const category = params.category;
 
     let items;
     if (category && category !== 'all') {

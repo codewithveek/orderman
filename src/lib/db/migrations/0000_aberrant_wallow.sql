@@ -1,3 +1,19 @@
+CREATE TABLE `account` (
+	`id` varchar(255) NOT NULL,
+	`user_id` varchar(255) NOT NULL,
+	`account_id` varchar(255) NOT NULL,
+	`provider_id` varchar(255) NOT NULL,
+	`access_token` text,
+	`refresh_token` text,
+	`access_token_expires_at` timestamp,
+	`refresh_token_expires_at` timestamp,
+	`scope` text,
+	`password` text,
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `account_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `menu_items` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`name` varchar(255) NOT NULL,
@@ -5,7 +21,7 @@ CREATE TABLE `menu_items` (
 	`price` decimal(10,2) NOT NULL,
 	`image_url` varchar(500) NOT NULL,
 	`category` varchar(100) NOT NULL,
-	`available` int NOT NULL DEFAULT 1,
+	`available` boolean NOT NULL DEFAULT false,
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
 	CONSTRAINT `menu_items_id` PRIMARY KEY(`id`)
@@ -36,14 +52,37 @@ CREATE TABLE `orders` (
 	CONSTRAINT `orders_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+CREATE TABLE `session` (
+	`id` varchar(255) NOT NULL,
+	`user_id` varchar(255) NOT NULL,
+	`token` varchar(255) NOT NULL,
+	`expires_at` timestamp NOT NULL,
+	`ip_address` varchar(255),
+	`user_agent` text,
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `session_id` PRIMARY KEY(`id`),
+	CONSTRAINT `session_token_unique` UNIQUE(`token`)
+);
+--> statement-breakpoint
 CREATE TABLE `users` (
 	`id` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`email` varchar(255) NOT NULL,
-	`email_verified` timestamp,
+	`email_verified` boolean,
 	`image` varchar(255),
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
 	CONSTRAINT `users_id` PRIMARY KEY(`id`),
 	CONSTRAINT `users_email_unique` UNIQUE(`email`)
+);
+--> statement-breakpoint
+CREATE TABLE `verification` (
+	`id` varchar(255) NOT NULL,
+	`identifier` varchar(255) NOT NULL,
+	`value` varchar(255) NOT NULL,
+	`expires_at` timestamp NOT NULL,
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `verification_id` PRIMARY KEY(`id`)
 );
