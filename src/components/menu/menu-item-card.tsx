@@ -1,29 +1,18 @@
 'use client';
 
-import { MenuItem } from '@/types'; // We need to define types
+import { MenuItem } from '@/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { formatCurrency } from '@/lib/utils'; // utility we need
-import { useCart } from '@/hooks/use-cart'; // hook we need
-
-// Temporary type until we generate from schema or db
-type MenuItemType = {
-    id: number;
-    name: string;
-    description: string;
-    price: string;
-    imageUrl: string;
-    category: string;
-    available: boolean; // converted from int(1)
-};
+import { formatCurrency } from '@/lib/utils';
+import { useCart } from '@/hooks/use-cart';
 
 interface MenuItemCardProps {
-    item: MenuItemType;
+    item: MenuItem;
 }
 
 export function MenuItemCard({ item }: MenuItemCardProps) {
-    // const { addItem } = useCart(); // We'll implement this later
+    const { addItem } = useCart();
 
     return (
         <Card className="overflow-hidden flex flex-col h-full">
@@ -40,7 +29,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
                 <div className="flex justify-between items-start gap-2">
                     <CardTitle className="text-lg line-clamp-1">{item.name}</CardTitle>
                     <span className="font-bold text-primary whitespace-nowrap">
-                        ${item.price}
+                        {formatCurrency(item.price)}
                     </span>
                 </div>
             </CardHeader>
@@ -53,7 +42,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
                 <Button
                     className="w-full"
                     disabled={!item.available}
-                    onClick={() => console.log('Add to cart', item)}
+                    onClick={() => addItem(item)}
                 >
                     {item.available ? 'Add to Cart' : 'Sold Out'}
                 </Button>

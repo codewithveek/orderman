@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
                     const newStatus = statuses[currentIndex];
 
                     // Update DB
-                    await db.update(orders).set({ status: newStatus }).where(eq(orders.id, orderId));
+                    await db.update(orders).set({ status: newStatus as any }).where(eq(orders.id, orderId));
 
                     sendEvent({ status: newStatus, timestamp: new Date().toISOString() });
 

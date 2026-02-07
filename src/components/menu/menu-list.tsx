@@ -1,20 +1,10 @@
 'use client';
 
 import { MenuItemCard } from './menu-item-card';
-
-// Temporary type
-type MenuItemType = {
-    id: number;
-    name: string;
-    description: string;
-    price: string;
-    imageUrl: string;
-    category: string;
-    available: boolean;
-};
+import { MenuItem } from '@/types';
 
 interface MenuListProps {
-    items: MenuItemType[];
+    items: MenuItem[];
 }
 
 export function MenuList({ items }: MenuListProps) {

@@ -33,12 +33,13 @@ export const menuRoutes = new Hono()
     })
     .post('/', zValidator('json', menuItemSchema), async (c) => {
         const data = c.req.valid('json');
+        const { available, ...rest } = data;
+        const insertData = {
+            ...rest,
+            available: available ? 1 : 0
+        };
 
-        // Convert boolean to number for MySQL boolean emulation if needed
-        // But Drizzle handles boolean mode: 'boolean' in schema definition usually?
-        // In schema.ts: available: int('available', { mode: 'boolean' }) -> correct.
+        const [result] = await db.insert(menuItems).values(insertData) as any;
 
-        const result = await db.insert(menuItems).values(data);
-
-        return c.json({ id: result[0].insertId, ...data }, 201);
+        return c.json({ id: result.insertId, ...data }, 201);
     });
