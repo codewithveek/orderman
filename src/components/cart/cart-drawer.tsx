@@ -12,7 +12,6 @@ import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cart.store";
 import { CartItem } from "./cart-item";
 import { CartSummary } from "./cart-summary";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "../ui/separator";
 

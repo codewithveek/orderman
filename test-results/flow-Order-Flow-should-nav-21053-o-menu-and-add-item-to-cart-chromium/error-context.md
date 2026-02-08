@@ -1,0 +1,175 @@
+# Page snapshot
+
+```yaml
+- generic:
+  - generic:
+    - banner:
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+            - text: 🍕 OrderMan
+          - navigation:
+            - link:
+              - /url: /menu
+              - text: Menu
+            - link:
+              - /url: /orders
+              - text: Orders
+        - generic:
+          - button [expanded]:
+            - img
+            - generic: "1"
+          - link:
+            - /url: /login
+            - text: Login
+    - main:
+      - generic:
+        - generic:
+          - heading [level=1]: Our Menu
+          - paragraph: Choose from our delicious selection of dishes.
+        - generic:
+          - button: All
+          - button: Pizza
+          - button: Burger
+          - button: Sushi
+          - button: Pasta
+          - button: Dessert
+          - button: Drinks
+        - generic:
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Classic Cheeseburger
+                - generic: $12.99
+            - generic:
+              - paragraph: Juicy beef patty with cheddar cheese, lettuce, tomato, and our secret sauce.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Bacon BBQ Burger
+                - generic: $14.99
+            - generic:
+              - paragraph: Beef patty topped with crispy bacon, onion rings, and smokey BBQ sauce.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Margherita Pizza
+                - generic: $10.99
+            - generic:
+              - paragraph: Classic tomato sauce, fresh mozzarella, and basil.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Pepperoni Feast
+                - generic: $13.99
+            - generic:
+              - paragraph: Double pepperoni and extra mozzarella cheese.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Crispy Fries
+                - generic: $4.99
+            - generic:
+              - paragraph: Golden fries seasoned with sea salt.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Onion Rings
+                - generic: $5.99
+            - generic:
+              - paragraph: Beer-battered onion rings served with ranch dip.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Cola
+                - generic: $2.50
+            - generic:
+              - paragraph: Ice cold cola.
+            - generic:
+              - button: Add to Cart
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - generic:
+                - heading [level=3]: Lemonade
+                - generic: $3.50
+            - generic:
+              - paragraph: Freshly squeezed lemonade.
+            - generic:
+              - button: Add to Cart
+  - region "Notifications alt+T"
+  - generic [ref=e5] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e6]:
+      - img [ref=e7]
+    - generic [ref=e10]:
+      - button "Open issues overlay" [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]: "0"
+          - generic [ref=e14]: "1"
+        - generic [ref=e15]: Issue
+      - button "Collapse issues badge" [ref=e16]:
+        - img [ref=e17]
+  - alert
+  - dialog "My Cart (1)" [ref=e20]:
+    - heading "My Cart (1)" [level=2] [ref=e22]
+    - generic [ref=e23]:
+      - generic [ref=e26]:
+        - img "Classic Cheeseburger" [ref=e28]
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - heading "Classic Cheeseburger" [level=3] [ref=e31]
+            - paragraph [ref=e32]: $12.99
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - button [disabled]:
+                - img
+              - generic [ref=e35]: "1"
+              - button [active] [ref=e36]:
+                - img [ref=e37]
+            - button [ref=e38]:
+              - img [ref=e39]
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: Subtotal
+            - generic [ref=e47]: $12.99
+          - generic [ref=e48]:
+            - generic [ref=e49]: Tax (10%)
+            - generic [ref=e50]: $1.30
+          - generic [ref=e51]:
+            - generic [ref=e52]: Total
+            - generic [ref=e53]: $14.29
+        - link "Checkout" [ref=e54] [cursor=pointer]:
+          - /url: /checkout
+    - button "Close" [ref=e55]:
+      - img [ref=e56]
+      - generic [ref=e59]: Close
+```
